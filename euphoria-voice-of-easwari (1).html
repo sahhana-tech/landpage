@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Euphoria 2026 — Voice of Easwari</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0b0714;
+    --violet-deep:#1b0f3d;
+    --violet-mid:#2e1a5e;
+    --magenta:#ff2e9a;
+    --amber:#ffb627;
+    --off-white:#f5f1ff;
+    --lavender:#9c8fc7;
+    --line: rgba(245,241,255,0.14);
+    --radius:18px;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--ink);
+    color:var(--off-white);
+    font-family:'Space Grotesk', sans-serif;
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+  }
+
+  a{color:inherit; text-decoration:none;}
+  ul{list-style:none;}
+  img,svg{display:block; max-width:100%;}
+
+  .display{font-family:'Anton', sans-serif; letter-spacing:0.02em; text-transform:uppercase;}
+  .mono{font-family:'Space Mono', monospace;}
+
+  .eyebrow{
+    font-family:'Space Mono', monospace;
+    letter-spacing:0.28em;
+    text-transform:uppercase;
+    font-size:0.72rem;
+    color:var(--amber);
+  }
+
+  .wrap{
+    max-width:1180px;
+    margin:0 auto;
+    padding:0 clamp(1.25rem, 4vw, 3rem);
+  }
+
+  section{position:relative;}
+
+  /* ---------- Focus visibility ---------- */
+  a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible{
+    outline:2px solid var(--amber);
+    outline-offset:3px;
+  }
+
+  /* ---------- Buttons ---------- */
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:0.6rem;
+    font-family:'Space Mono', monospace;
+    font-weight:700;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    font-size:0.85rem;
+    padding:0.95rem 1.9rem;
+    border-radius:999px;
+    border:1px solid transparent;
+    cursor:pointer;
+    transition:transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+  }
+  .btn-primary{
+    background:linear-gradient(120deg, var(--magenta), #ff6a3d);
+    color:var(--ink);
+    box-shadow:0 10px 30px -8px rgba(255,46,154,0.55);
+  }
+  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 16px 36px -8px rgba(255,46,154,0.7);}
+  .btn-ghost{
+    background:transparent;
+    color:var(--off-white);
+    border-color:var(--line);
+  }
+  .btn-ghost:hover{border-color:var(--amber); color:var(--amber);}
+
+  /* ---------- Nav ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(11,7,20,0.75);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:1.1rem clamp(1.25rem, 4vw, 3rem);
+    max-width:1180px; margin:0 auto;
+  }
+  .brand{
+    display:flex; align-items:center; gap:0.6rem;
+    font-family:'Space Mono', monospace;
+    font-weight:700;
+    letter-spacing:0.05em;
+    font-size:0.95rem;
+  }
+  .brand-mark{
+    width:24px; height:24px;
+    position:relative;
+    flex:none;
+  }
+  .brand-mark span{
+    position:absolute; top:50%; left:50%;
+    width:3px; height:11px;
+    margin:-5.5px 0 0 -1.5px;
+    background:var(--amber);
+    border-radius:2px;
+    animation:spark 2.4s ease-in-out infinite;
+  }
+  .brand-mark span:nth-child(1){animation-name:spark0;}
+  .brand-mark span:nth-child(2){background:var(--magenta); animation-name:spark90; animation-delay:0.2s;}
+  .brand-mark span:nth-child(3){animation-name:spark45; animation-delay:0.4s;}
+  .brand-mark span:nth-child(4){background:var(--magenta); animation-name:spark135; animation-delay:0.6s;}
+  .brand-mark span{animation-duration:2.4s; animation-timing-function:ease-in-out; animation-iteration-count:infinite;}
+
+  @keyframes spark0{0%,100%{opacity:0.4; transform:rotate(0deg) scale(0.65);} 50%{opacity:1; transform:rotate(0deg) scale(1);}}
+  @keyframes spark90{0%,100%{opacity:0.4; transform:rotate(90deg) scale(0.65);} 50%{opacity:1; transform:rotate(90deg) scale(1);}}
+  @keyframes spark45{0%,100%{opacity:0.4; transform:rotate(45deg) scale(0.65);} 50%{opacity:1; transform:rotate(45deg) scale(1);}}
+  @keyframes spark135{0%,100%{opacity:0.4; transform:rotate(135deg) scale(0.65);} 50%{opacity:1; transform:rotate(135deg) scale(1);}}
+
+  nav .nav-links{display:flex; align-items:center; gap:2.2rem;}
+  nav .nav-links a{
+    font-size:0.85rem;
+    color:var(--lavender);
+    font-weight:500;
+    transition:color 0.2s ease;
+  }
+  nav .nav-links a:hover{color:var(--off-white);}
+  .nav-cta{display:flex; align-items:center; gap:1rem;}
+  .menu-links{display:flex; gap:2.2rem;}
+
+  @media (max-width:760px){
+    .menu-links{display:none;}
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative;
+    padding:clamp(3.5rem,9vw,6.5rem) 0 clamp(3rem,7vw,5rem);
+    background:
+      radial-gradient(60% 55% at 18% 12%, rgba(255,46,154,0.28), transparent 60%),
+      radial-gradient(55% 50% at 85% 15%, rgba(255,182,39,0.16), transparent 60%),
+      linear-gradient(180deg, var(--ink) 0%, var(--violet-deep) 100%);
+    overflow:hidden;
+    border-bottom:1px solid var(--line);
+  }
+
+  .ticker{
+    overflow:hidden;
+    width:100%;
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    background:rgba(245,241,255,0.03);
+    padding:0.85rem 0;
+    margin-top:2.6rem;
+  }
+  .ticker-track{
+    display:flex;
+    width:max-content;
+    gap:2.2rem;
+    animation:tickerscroll 26s linear infinite;
+  }
+  .ticker-track span{
+    font-family:'Space Mono', monospace;
+    font-size:0.78rem;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--lavender);
+    white-space:nowrap;
+    display:flex;
+    align-items:center;
+    gap:2.2rem;
+  }
+  .ticker-track span::after{
+    content:"\2022";
+    color:var(--magenta);
+  }
+  @keyframes tickerscroll{
+    from{transform:translateX(0);}
+    to{transform:translateX(-50%);}
+  }
+
+  .hero-inner{
+    position:relative; z-index:2;
+    text-align:center;
+    display:flex; flex-direction:column; align-items:center;
+    gap:1.4rem;
+  }
+
+  .hero-title{
+    font-size:clamp(3.6rem, 14vw, 9.5rem);
+    line-height:0.88;
+    background:linear-gradient(120deg, #ffffff 20%, var(--amber) 55%, var(--magenta) 90%);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    margin-top:0.6rem;
+  }
+
+  .hero-sub{
+    max-width:560px;
+    color:var(--lavender);
+    font-size:clamp(1rem, 2vw, 1.15rem);
+  }
+
+  .hero-pills{
+    display:flex; flex-wrap:wrap; justify-content:center; gap:0.75rem;
+    margin-top:0.4rem;
+  }
+  .pill{
+    display:flex; align-items:center; gap:0.5rem;
+    font-family:'Space Mono', monospace;
+    font-size:0.8rem;
+    letter-spacing:0.04em;
+    padding:0.55rem 1.1rem;
+    border:1px solid var(--line);
+    border-radius:999px;
+    color:var(--off-white);
+    background:rgba(245,241,255,0.04);
+  }
+  .pill b{color:var(--amber); font-weight:700;}
+
+  .hero-cta{margin-top:1rem; display:flex; gap:1rem; flex-wrap:wrap; justify-content:center;}
+
+  .scroll-cue{
+    margin-top:2.4rem;
+    display:flex; flex-direction:column; align-items:center; gap:0.5rem;
+    color:var(--lavender);
+    font-family:'Space Mono', monospace;
+    font-size:0.7rem;
+    letter-spacing:0.2em;
+    text-transform:uppercase;
+  }
+  .scroll-cue .stick{
+    width:1px; height:34px;
+    background:linear-gradient(180deg, var(--magenta), transparent);
+    animation:drop 1.6s ease-in-out infinite;
+  }
+  @keyframes drop{
+    0%{transform:translateY(0); opacity:1;}
+    100%{transform:translateY(10px); opacity:0;}
+  }
+
+  /* ---------- Section shell ---------- */
+  .section-pad{padding:clamp(4rem,8vw,6.5rem) 0;}
+  .section-head{
+    display:flex; flex-direction:column; gap:0.6rem;
+    margin-bottom:clamp(2rem,5vw,3.2rem);
+  }
+  .section-title{
+    font-size:clamp(2.1rem, 5vw, 3.2rem);
+    line-height:1;
+  }
+
+  /* ---------- About ---------- */
+  .about{
+    background:var(--violet-deep);
+    border-bottom:1px solid var(--line);
+  }
+  .about-grid{
+    display:grid;
+    grid-template-columns:1.1fr 0.9fr;
+    gap:clamp(2.5rem,6vw,5rem);
+    align-items:center;
+  }
+  .about p{color:var(--lavender); max-width:52ch; margin-bottom:1.6rem;}
+  .about-list{display:flex; flex-direction:column; gap:0.9rem;}
+  .about-list li{
+    display:flex; gap:0.8rem; align-items:flex-start;
+    font-size:0.95rem;
+    color:var(--off-white);
+  }
+  .about-list .bar{
+    flex:none;
+    width:3px; height:1.3rem; margin-top:0.15rem;
+    background:linear-gradient(180deg, var(--magenta), var(--amber));
+    border-radius:2px;
+  }
+
+  .category-grid{
+    background:var(--ink);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:1.4rem;
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:0.9rem;
+  }
+  .category-grid .cat{
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:1.1rem 0.7rem;
+    text-align:center;
+    font-family:'Space Mono', monospace;
+    font-size:0.76rem;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    color:var(--off-white);
+    background:rgba(245,241,255,0.03);
+  }
+  .category-grid .cat:nth-child(3n+1){border-top:2px solid var(--magenta);}
+  .category-grid .cat:nth-child(3n+2){border-top:2px solid var(--amber);}
+  .category-grid .cat:nth-child(3n){border-top:2px solid var(--lavender);}
+
+  @media (max-width:860px){
+    .about-grid{grid-template-columns:1fr;}
+    .category-grid{order:-1; grid-template-columns:repeat(3, 1fr);}
+  }
+  @media (max-width:420px){
+    .category-grid{grid-template-columns:repeat(2, 1fr);}
+  }
+
+  /* ---------- Ticket / details ---------- */
+  .details{background:var(--ink);}
+  .ticket{
+    position:relative;
+    max-width:820px;
+    margin:0 auto;
+    background:linear-gradient(135deg, var(--violet-deep), var(--violet-mid));
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    display:grid;
+    grid-template-columns:1fr auto 1.4fr;
+    overflow:visible;
+  }
+  .ticket-side{
+    padding:2rem 1.6rem;
+    display:flex; flex-direction:column; justify-content:center; align-items:flex-start; gap:0.4rem;
+  }
+  .ticket-side .display{font-size:1.6rem; line-height:1;}
+  .ticket-side .num{color:var(--lavender);}
+
+  .perf{
+    position:relative;
+    width:0;
+    border-left:2px dashed var(--line);
+  }
+  .perf::before, .perf::after{
+    content:"";
+    position:absolute; left:50%; transform:translateX(-50%);
+    width:26px; height:26px;
+    background:var(--ink);
+    border-radius:50%;
+  }
+  .perf::before{top:-13px;}
+  .perf::after{bottom:-13px;}
+
+  .ticket-main{
+    padding:2rem 2.2rem;
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:1.4rem;
+    align-items:center;
+  }
+  .ticket-field .eyebrow{margin-bottom:0.35rem;}
+  .ticket-field p{font-family:'Space Mono', monospace; font-size:0.92rem;}
+
+  .ticket-cta{
+    grid-column:1 / -1;
+    margin-top:0.6rem;
+    display:flex; justify-content:flex-start;
+  }
+
+  @media (max-width:760px){
+    .ticket{grid-template-columns:1fr;}
+    .perf{width:auto; height:0; border-left:none; border-top:2px dashed var(--line); margin:0 1.6rem;}
+    .perf::before{top:auto; left:-13px; }
+    .perf::after{bottom:auto; right:-13px; left:auto;}
+    .ticket-main{grid-template-columns:1fr 1fr;}
+    .ticket-cta{grid-column:1/-1;}
+  }
+  @media (max-width:480px){
+    .ticket-main{grid-template-columns:1fr;}
+  }
+
+  /* ---------- Register banner ---------- */
+  .register-banner{
+    background:linear-gradient(120deg, var(--magenta), #ff6a3d 60%, var(--amber));
+    color:var(--ink);
+  }
+  .register-banner .wrap{
+    padding:clamp(3rem,7vw,4.5rem) clamp(1.25rem,4vw,3rem);
+    display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:1.6rem;
+  }
+  .register-banner h3{font-size:clamp(1.6rem,3.4vw,2.3rem); max-width:26ch;}
+  .register-banner .btn-primary{
+    background:var(--ink);
+    color:var(--off-white);
+    box-shadow:none;
+  }
+  .register-banner .btn-primary:hover{transform:translateY(-2px);}
+
+  /* ---------- Contact ---------- */
+  .contact{background:var(--violet-deep);}
+  .contact-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:1.4rem;
+  }
+  .contact-card{
+    background:rgba(245,241,255,0.04);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:1.7rem;
+    display:flex; flex-direction:column; gap:0.6rem;
+  }
+  .contact-card .eyebrow{color:var(--magenta);}
+  .contact-card a, .contact-card p{font-size:0.98rem;}
+  .contact-card a:hover{color:var(--amber);}
+
+  .contact-address{
+    margin-top:2.2rem;
+    color:var(--lavender);
+    font-size:0.92rem;
+    max-width:60ch;
+  }
+
+  @media (max-width:860px){
+    .contact-grid{grid-template-columns:1fr;}
+  }
+
+  /* ---------- Footer ---------- */
+  footer{
+    background:var(--ink);
+    border-top:1px solid var(--line);
+    padding:2.2rem clamp(1.25rem,4vw,3rem);
+  }
+  footer .wrap{
+    display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between;
+    gap:1rem;
+    color:var(--lavender);
+    font-size:0.82rem;
+  }
+  footer .socials{display:flex; gap:1.1rem;}
+  footer .socials a{color:var(--off-white);}
+  footer .socials a:hover{color:var(--amber);}
+
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <div class="brand">
+      <span class="brand-mark"><span></span><span></span><span></span><span></span></span>
+      VOICE OF EASWARI
+    </div>
+    <div class="menu-links">
+      <a href="#about">About</a>
+      <a href="#details">Details</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="nav-cta">
+      <a class="btn btn-primary" href="#register-link" target="_blank" rel="noopener">Register Now</a>
+    </div>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-inner">
+    <p class="eyebrow">Voice of Easwari Presents</p>
+    <h1 class="hero-title display">Euphoria</h1>
+    <p class="hero-sub">SRM Easwari's biggest celebration of ideas, talent & energy — one fest, every kind of stage.</p>
+    <div class="hero-pills">
+      <span class="pill">📅 <b>23 Aug 2026</b></span>
+      <span class="pill">⏰ <b>10:00 AM</b></span>
+      <span class="pill">📍 <b>OAT Auditorium</b></span>
+    </div>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="#register-link" target="_blank" rel="noopener">Register Now</a>
+      <a href="#about" class="btn btn-ghost">Learn More</a>
+    </div>
+    <div class="scroll-cue"><span>Scroll</span><span class="stick"></span></div>
+  </div>
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-track" id="tickerTrack"></div>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="wrap section-pad about-grid">
+    <div>
+      <p class="eyebrow">About the event</p>
+      <h2 class="section-title display">One Fest.<br>Every Kind of Talent.</h2>
+      <p>Euphoria is the flagship annual fest hosted by Voice of Easwari, SRM Easwari Engineering College's official event-hosting club. A single day at the OAT Auditorium packed with competitions, showcases and open floors — built for anyone who wants to compete, perform, build, or just show up and be part of it.</p>
+      <ul class="about-list">
+        <li><span class="bar"></span>Competitions across culture, tech, and general knowledge</li>
+        <li><span class="bar"></span>Open floor and talent showcase slots for all departments</li>
+        <li><span class="bar"></span>Workshops and guest sessions through the day</li>
+        <li><span class="bar"></span>Certificates and prizes for category winners</li>
+      </ul>
+    </div>
+    <div class="category-grid" aria-hidden="true" id="categoryGrid"></div>
+  </div>
+</section>
+
+<section class="details section-pad" id="details">
+  <div class="wrap">
+    <div class="section-head" style="text-align:center; align-items:center;">
+      <p class="eyebrow">Save the date</p>
+      <h2 class="section-title display">Your Ticket to Euphoria</h2>
+    </div>
+
+    <div class="ticket">
+      <div class="ticket-side">
+        <p class="eyebrow">Admit One</p>
+        <p class="display">Euphoria<br>2026</p>
+        <p class="mono num">No. 001</p>
+      </div>
+      <div class="perf" aria-hidden="true"></div>
+      <div class="ticket-main">
+        <div class="ticket-field">
+          <p class="eyebrow">Date</p>
+          <p>Saturday, 23 Aug 2026</p>
+        </div>
+        <div class="ticket-field">
+          <p class="eyebrow">Time</p>
+          <p>10:00 AM</p>
+        </div>
+        <div class="ticket-field">
+          <p class="eyebrow">Venue</p>
+          <p>OAT Auditorium</p>
+        </div>
+        <div class="ticket-cta">
+          <a class="btn btn-primary" href="#register-link" target="_blank" rel="noopener">Register Now</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="register-banner">
+  <div class="wrap">
+    <h3 class="display">Seats fill fast. Claim yours before slots run out.</h3>
+    <a class="btn btn-primary" href="#register-link" target="_blank" rel="noopener">Register Now</a>
+  </div>
+</section>
+
+<section class="contact section-pad" id="contact">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Get in touch</p>
+      <h2 class="section-title display">Questions? We're Listening.</h2>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <p class="eyebrow">Email</p>
+        <a href="mailto:voiceofeaswari@srmeaswari.edu.in">voiceofeaswari@srmeaswari.edu.in</a>
+      </div>
+      <div class="contact-card">
+        <p class="eyebrow">Phone</p>
+        <a href="tel:+910000000000">+91 0000000000</a>
+      </div>
+      <div class="contact-card">
+        <p class="eyebrow">Instagram</p>
+        <a href="#" target="_blank" rel="noopener">@voiceofeaswari</a>
+      </div>
+    </div>
+    <p class="contact-address">OAT Auditorium, SRM Easwari Engineering College, Bharathi Salai, Ramapuram, Chennai, Tamil Nadu - 600089.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Voice of Easwari — SRM Easwari Engineering College</span>
+    <span class="socials">
+      <a href="#" aria-label="Instagram">IG</a>
+      <a href="#" aria-label="YouTube">YT</a>
+      <a href="#" aria-label="Email">Mail</a>
+    </span>
+  </div>
+</footer>
+
+<script>
+  // Build the scrolling category ticker (duplicated once for a seamless loop)
+  (function buildTicker(){
+    const categories = ['Dance', 'Debate', 'Hackathon', 'Drama', 'Quiz', 'Music', 'Art & Design', 'Sports', 'Talks', 'Gaming', 'Photography', 'Open Mic'];
+    const track = document.getElementById('tickerTrack');
+    const list = categories.map(c => `<span>${c}</span>`).join('');
+    track.innerHTML = list + list;
+  })();
+
+  // Build the About-section category grid
+  (function buildCategoryGrid(){
+    const cats = ['Cultural', 'Technical', 'Quiz', 'Workshops', 'Open Floor', 'Sports'];
+    const grid = document.getElementById('categoryGrid');
+    grid.innerHTML = cats.map(c => `<div class="cat">${c}</div>`).join('');
+  })();
+
+</script>
+
+</body>
+</html>
